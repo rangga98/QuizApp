@@ -85,14 +85,10 @@ namespace QuizAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Participant>> PostParticipant(Participant participant)
         {
-            if (_context.Participants == null)
-            {
-                return Problem("Entity set 'QuizDbContext.Participants'  is null.");
-            }
-
             var temp = _context.Participants
                 .Where(x => x.Name == participant.Name && x.Email == participant.Email)
                 .FirstOrDefault();
+            
             if(temp == null)
             {
                 _context.Participants.Add(participant);
